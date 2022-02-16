@@ -1,17 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import type {Node} from 'react';
 import {SafeAreaView, Text, View, StyleSheet} from 'react-native';
 import Header from '../components/header';
 import Profile from '../components/profile';
 import Footer from '../components/footer';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const Home: () => Node = ({navigation}) => {
   const clickHandler = () => {
     navigation.navigate('Story');
   };
+  const [img, setImage] = useState(require('../assets/my_img.jpg'));
+  const [init, setInit] = useState(true);
+  //open gallery function that needs to be invoked on long press
   const longPressHandler = () => {
-      navigation.navigate('Profile Pic');
-  }
+    const options = {
+      storageOptions: {
+        path: 'images',
+        mediaType: 'photo',
+      },
+      includeBase64: true,
+    };
+
+    launchImageLibrary(options, response => {
+    //   console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        // You can also display the image using data:
+        const source = {
+          uri: 'data:image/jpeg;base64,' + response.assets[0].base64,
+        };
+        // const source = response.assets[0].base64;
+        // console.log('Source of image is->> ', source);
+        setImage(source);
+        // console.log(img);
+        setInit(false);
+      }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainBody}>
@@ -22,6 +54,8 @@ const Home: () => Node = ({navigation}) => {
           name="Vishwas"
           profession="Software Engineer"
           website="www.test.com"
+          image={img}
+          init={init}
         />
       </View>
       {/* <View style={styles.footer}> */}

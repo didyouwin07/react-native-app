@@ -2,14 +2,13 @@ import React from 'react';
 import type {Node} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
-const img = require('../assets/my_img.jpg');
-
 const Profile: () => Node = props => (
   <View style={styles.container}>
     <TouchableOpacity
       onPress={props.clickHandler}
       onLongPress={props.longPressHandler}>
-      <Image source={img} style={styles.imgStyle} />
+      {props.init && <Image source={props.image} style={styles.imgStyle} />}
+      {!props.init && <Image source={props.image} style={styles.imgStyle} />}
     </TouchableOpacity>
     <Text style={styles.nameFont}>{props.name}</Text>
     <Text style={styles.bioFont}>{props.profession}</Text>
