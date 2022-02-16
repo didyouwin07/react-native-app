@@ -5,12 +5,20 @@ import Header from '../components/header';
 import Profile from '../components/profile';
 import Footer from '../components/footer';
 
-const Home: () => Node = () => {
+const Home: () => Node = ({navigation}) => {
+  const clickHandler = () => {
+    navigation.navigate('Story');
+  };
+  const longPressHandler = () => {
+      navigation.navigate('Profile Pic');
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainBody}>
         <Header />
         <Profile
+          clickHandler={clickHandler}
+          longPressHandler={longPressHandler}
           name="Vishwas"
           profession="Software Engineer"
           website="www.test.com"

@@ -6,7 +6,9 @@ const img = require('../assets/my_img.jpg');
 
 const Profile: () => Node = props => (
   <View style={styles.container}>
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={props.clickHandler}
+      onLongPress={props.longPressHandler}>
       <Image source={img} style={styles.imgStyle} />
     </TouchableOpacity>
     <Text style={styles.nameFont}>{props.name}</Text>
