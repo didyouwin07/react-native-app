@@ -7,18 +7,25 @@ const Profile: () => Node = props => (
     <TouchableOpacity
       onPress={props.clickHandler}
       onLongPress={props.longPressHandler}>
-      {!props.storyAdded && props.init && (
+      {!props.storyViewed && !props.storyAdded && props.init && (
         <Image source={props.image} style={styles.imgStyle} />
       )}
-      {!props.storyAdded && !props.init && (
+      {!props.storyViewed && !props.storyAdded && !props.init && (
         <Image source={props.image} style={styles.imgStyle} />
       )}
-      {props.storyAdded && props.init && (
+      {!props.storyViewed && props.storyAdded && props.init && (
         <Image source={props.image} style={styles.imgStyle2} />
       )}
-      {props.storyAdded && !props.init && (
+      {!props.storyViewed && props.storyAdded && !props.init && (
         <Image source={props.image} style={styles.imgStyle2} />
       )}
+      {props.storyViewed && props.storyAdded && props.init && (
+        <Image source={props.image} style={styles.imgStyle3} />
+      )}
+      {props.storyViewed && props.storyAdded && !props.init && (
+        <Image source={props.image} style={styles.imgStyle3} />
+      )}
+
     </TouchableOpacity>
     <Text style={styles.nameFont}>{props.name}</Text>
     <Text style={styles.bioFont}>{props.profession}</Text>
@@ -45,6 +52,15 @@ const styles = StyleSheet.create({
     height: 350,
     borderRadius: 350 / 2,
     borderColor: 'black',
+    borderWidth: 8,
+    marginBottom: 30,
+    marginTop: 20,
+  },
+  imgStyle3: {
+    width: 350,
+    height: 350,
+    borderRadius: 350 / 2,
+    borderColor: 'gray',
     borderWidth: 8,
     marginBottom: 30,
     marginTop: 20,

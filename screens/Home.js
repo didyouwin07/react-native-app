@@ -11,6 +11,7 @@ const Home: () => Node = ({route, navigation}) => {
   const [headline, setHeadline] = useState('');
   const [story, setStory] = useState('');
   const [storyImg, setStoryImg] = useState('');
+  const [viewed, setViewed] = useState(false);
 
   if (counter === true) {
     //     setHeadline(route.params.headline);
@@ -36,6 +37,7 @@ const Home: () => Node = ({route, navigation}) => {
         story: route.params.story,
         storyImg: route.params.storyImg,
       });
+      setViewed(true);
     }
   };
   const [img, setImage] = useState(require('../assets/my_img.jpg'));
@@ -84,7 +86,8 @@ const Home: () => Node = ({route, navigation}) => {
           website="www.test.com"
           image={img}
           init={init}
-          storyAdded={counter} //route.params.storyAdded is needed here but it shouldn't be undefined
+          storyAdded={counter} //route.params is needed here but it shouldn't be undefined
+          storyViewed={viewed}
         />
       </View>
       {/* <View style={styles.footer}> */}
