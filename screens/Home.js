@@ -6,9 +6,37 @@ import Profile from '../components/profile';
 import Footer from '../components/footer';
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const Home: () => Node = ({navigation}) => {
+const Home: () => Node = ({route, navigation}) => {
+  const [counter, setCounter] = useState(false);
+  const [headline, setHeadline] = useState('');
+  const [story, setStory] = useState('');
+  const [storyImg, setStoryImg] = useState('');
+
+  if (counter === true) {
+    //     setHeadline(route.params.headline);
+    //     setStory(route.params.story);
+    //     setStoryImg(route.params.storyImg);
+    console.log('Story has been added');
+  }
+
+  if (counter === false && route.params) {
+    setCounter(true);
+  }
+
   const clickHandler = () => {
-    navigation.navigate('Story');
+    if (counter === false) {
+      navigation.navigate('Story');
+      if (route.params) {
+        setCounter(true);
+      }
+    } else {
+      console.log('Showing story');
+      navigation.navigate('News', {
+        headline: route.params.headline,
+        story: route.params.story,
+        storyImg: route.params.storyImg,
+      });
+    }
   };
   const [img, setImage] = useState(require('../assets/my_img.jpg'));
   const [init, setInit] = useState(true);
@@ -23,7 +51,7 @@ const Home: () => Node = ({navigation}) => {
     };
 
     launchImageLibrary(options, response => {
-    //   console.log('Response = ', response);
+      //   console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -56,6 +84,7 @@ const Home: () => Node = ({navigation}) => {
           website="www.test.com"
           image={img}
           init={init}
+          storyAdded={counter} //route.params.storyAdded is needed here but it shouldn't be undefined
         />
       </View>
       {/* <View style={styles.footer}> */}

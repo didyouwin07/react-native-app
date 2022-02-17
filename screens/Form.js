@@ -12,17 +12,26 @@ import {
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const Form: () => Node = ({navigation}) => {
+const Form: () => Node = ({route, navigation}) => {
   const [headline, setHeadline] = useState('');
   const [story, setStory] = useState('');
   const [img, setImage] = useState(require('../assets/my_img.jpg'));
   const [init, setInit] = useState(false);
 
   const submitHandler = () => {
-    console.log(headline);
-    console.log(story);
-    console.log(img);
-    navigation.pop();
+    // console.log(headline);
+    // console.log(story);
+    // console.log(img);
+    navigation.navigate({
+      name: 'Home',
+      params: {
+        headline: headline,
+        story: story,
+        storyImg: img,
+        storyAdded: true,
+      },
+      merge: true,
+    });
   };
 
   const imageHandler = () => {
@@ -73,8 +82,20 @@ const Form: () => Node = ({navigation}) => {
           {init && <Image source={img} style={styles.imageStyle} />}
         </View>
         <View style={styles.buttonStyle}>
-          {!init && <Button color="#fdbb21" title="Select image" onPress={imageHandler} />}
-          {init && <Button color="#fdbb21" title="Change image" onPress={imageHandler} />}
+          {!init && (
+            <Button
+              color="#fdbb21"
+              title="Select image"
+              onPress={imageHandler}
+            />
+          )}
+          {init && (
+            <Button
+              color="#fdbb21"
+              title="Change image"
+              onPress={imageHandler}
+            />
+          )}
         </View>
         <View style={[styles.buttonStyle, {marginTop: 20}]}>
           <Button title="Submit" onPress={submitHandler} />
