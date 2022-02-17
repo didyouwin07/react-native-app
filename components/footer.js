@@ -1,19 +1,22 @@
 import React from 'react';
 import type {Node} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import Icon2 from 'react-native-vector-icons/Ionicons'
 
 const Footer: () => Node = () => (
   <>
     <View style={styles.container}>
       <View style={styles.lines} />
       <View>
-        <Text style={styles.decagon}>Hello</Text>
+      
+        <Text style={styles.decagon}>Decagon</Text>
       </View>
       <View style={styles.lines} />
     </View>
     <View style={styles.footerStyle}>
-      <Text style={styles.footerIcons}>left </Text>
-      <Text style={styles.footerIcons}>right </Text>
+      <Text style={styles.footerIcons}>Square </Text>
+      <Text style={styles.footerIcons}>Triangle</Text>
     </View>
   </>
 );
