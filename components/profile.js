@@ -2,12 +2,30 @@ import React from 'react';
 import type {Node} from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
-const img = require('../assets/my_img.jpg');
-
 const Profile: () => Node = props => (
   <View style={styles.container}>
-    <TouchableOpacity>
-      <Image source={img} style={styles.imgStyle} />
+    <TouchableOpacity
+      onPress={props.clickHandler}
+      onLongPress={props.longPressHandler}>
+      {!props.storyViewed && !props.storyAdded && props.init && (
+        <Image source={props.image} style={styles.imgStyle} />
+      )}
+      {!props.storyViewed && !props.storyAdded && !props.init && (
+        <Image source={props.image} style={styles.imgStyle} />
+      )}
+      {!props.storyViewed && props.storyAdded && props.init && (
+        <Image source={props.image} style={styles.imgStyle2} />
+      )}
+      {!props.storyViewed && props.storyAdded && !props.init && (
+        <Image source={props.image} style={styles.imgStyle2} />
+      )}
+      {props.storyViewed && props.storyAdded && props.init && (
+        <Image source={props.image} style={styles.imgStyle3} />
+      )}
+      {props.storyViewed && props.storyAdded && !props.init && (
+        <Image source={props.image} style={styles.imgStyle3} />
+      )}
+
     </TouchableOpacity>
     <Text style={styles.nameFont}>{props.name}</Text>
     <Text style={styles.bioFont}>{props.profession}</Text>
@@ -25,6 +43,24 @@ const styles = StyleSheet.create({
     height: 350,
     borderRadius: 350 / 2,
     borderColor: '#fdbb21',
+    borderWidth: 8,
+    marginBottom: 30,
+    marginTop: 20,
+  },
+  imgStyle2: {
+    width: 350,
+    height: 350,
+    borderRadius: 350 / 2,
+    borderColor: 'black',
+    borderWidth: 8,
+    marginBottom: 30,
+    marginTop: 20,
+  },
+  imgStyle3: {
+    width: 350,
+    height: 350,
+    borderRadius: 350 / 2,
+    borderColor: 'gray',
     borderWidth: 8,
     marginBottom: 30,
     marginTop: 20,

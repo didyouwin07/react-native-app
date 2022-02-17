@@ -17,7 +17,7 @@ const Header: () => Node = () => (
       style={[styles.rightIcon, styles.headerText]}
     /> */}
     {/* <Icon name="home" size={26} /> */}
-    <Text style={[styles.leftIcon, styles.headerText]}>left </Text>
+    <Text style={[styles.leftIcon, styles.headerText]}>back </Text>
     <Text style={[styles.rightIcon, styles.headerText]}>menu </Text>
   </View>
 );
