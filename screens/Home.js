@@ -5,6 +5,16 @@ import Header from '../components/header';
 import Profile from '../components/profile';
 import Footer from '../components/footer';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {useQuery, gql} from '@apollo/client';
+
+const getHomePageDetails = gql`
+  {
+    HomePageDetails(id: 1) {
+      name
+      profession
+    }
+  }
+`;
 
 const Home: () => Node = ({route, navigation}) => {
   const [counter, setCounter] = useState(false);
@@ -12,6 +22,19 @@ const Home: () => Node = ({route, navigation}) => {
   const [story, setStory] = useState('');
   const [storyImg, setStoryImg] = useState('');
   const [viewed, setViewed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [name, setName] = useState('Fetching...');
+  const [profession,setProfession] = useState('Fetching');
+  const {loading, data} = useQuery(getHomePageDetails);
+  //   if (loading) {
+  //     return <Text>Loading...</Text>;
+  //   }
+  if (loaded === false && data) {
+    setLoaded(true);
+    setName(data.HomePageDetails.name);
+    setProfession(data.HomePageDetails.profession);
+    console.log(data.HomePageDetails.name);
+  }
 
   if (counter === true) {
     //     setHeadline(route.params.headline);
@@ -81,8 +104,8 @@ const Home: () => Node = ({route, navigation}) => {
         <Profile
           clickHandler={clickHandler}
           longPressHandler={longPressHandler}
-          name="Vishwas"
-          profession="Software Engineer"
+          name={name}
+          profession={profession}
           website="www.test.com"
           image={img}
           init={init}
